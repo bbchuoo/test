@@ -123,15 +123,12 @@ var item1Layer = cc.Layer.extend({
                         if(layer.gameOver) {
 
                             layer.getclick = layer.imgrect[layer.i];
-                            if(layer.currentState[layer.i]==null){
+
+
                                 layer.currentState.unshift(layer.getclick);
-
-                                playRound(layer.imgrect[layer.i],layer);
-                            }
-                            else{
-                                alert("點過了")
-                            }
-
+                            cc.log(layer.currentState[layer.i]);
+                            cc.log(layer.currentState[(layer.i+1)]);
+                            playRound(layer.imgrect[layer.i],layer);
 
                         }
 
@@ -146,48 +143,6 @@ var item1Layer = cc.Layer.extend({
 
         },this);
     },
-
-    // setwinner:function(){
-    //     //定義勝利的組合
-    //     // this.winner = {
-    //     //     combo0 : [0,1,2],
-    //     //     combo1:[3,4,5],
-    //     //     combo2 : [6,7,8],
-    //     //     combo3 : [0,3,6],
-    //     //     combo4 : [1,4,7],
-    //     //     combo5 : [2,5,8],
-    //     //     combo6 : [0,4,8],
-    //     //     combo7 : [2,4,6],
-    //     //
-    //     // };
-    //     this.winner = [
-    //         [0,1,2],
-    //        [3,4,5],
-    //        [6,7,8],
-    //        [0,3,6],
-    //         [1,4,7],
-    //         [2,5,8],
-    //         [0,4,8],
-    //        [2,4,6],
-    //
-    //     ];
-
-        // this.checkPoint=[
-        //     [this.winner.combo0,this.winner.combo3,this.winner.combo6],
-        //    [this.winner.combo0,this.winner.combo4],
-        //    [this.winner.combo0,this.winner.combo5,this.winner.combo7],
-        //    [this.winner.combo1,this.winner.combo3],
-        //    [this.winner.combo1,this.winner.combo4,this.winner.combo6,this.winner.combo7],
-        //   [this.winner.combo1,this.winner.combo5],
-        //   [this.winner.combo2,this.winner.combo3,this.winner.combo7],
-        //    [this.winner.combo2,this.winner.combo4],
-        //   [this.winner.combo2,this.winner.combo5,this.winner.combo6],
-        // ]
-        // ;
-        // cc.log(this.checkPoint.one);
-    // },
-
-
 
 
 
@@ -222,30 +177,3 @@ else if(turn==1) {
     turn = 0;
 }
 }
-
-
-
-// function player1(objDest,layer){
-//     layer.img1 = new cc.Sprite(res.giraffe_png);
-//     layer.img1.x = objDest.x + objDest.width / 2;
-//     layer.img1.y = objDest.y + objDest.height / 2;
-//     layer.addChild(layer.img1);
-// };
-// function player2(objDest,layer){
-//     layer.img2 = new cc.Sprite(res.panda_png);
-//     layer.img2.x = objDest.x + objDest.width / 2;
-//     layer.img2.y = objDest.y + objDest.height / 2;
-//     layer.addChild(layer.img2);
-// };
-// function checkcombo (check,layer){
-//
-//     cc.log(check);
-//     // var a0 = layer.currentState[check[0]];
-//     // var a1 = layer.currentState[check[1]];
-//     // var a2 = layer.currentState[check[2]];
-//     // var w = (a0==a1 && a1==a2);
-//     // if(w){
-//     //     alert("winner");
-//     // }
-//     // return w;
-// }
