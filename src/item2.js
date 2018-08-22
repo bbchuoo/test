@@ -1,6 +1,6 @@
 
 
-var item1Layer = cc.Layer.extend({
+var item2Layer = cc.Layer.extend({
     sprite:null,
     itembg:null,
     imgrect:new Array(9),
@@ -8,23 +8,25 @@ var item1Layer = cc.Layer.extend({
     py:null,
     img1:null,
     img2:null,
-    winner:[],
-    checkPoint:[],
-    gameOver:true,
-    currentState:[],
-    currentSetp:0,
-    getclick:null,
-    checkwinner:null,
-    checkcombo:null,
-    symbols:[],
-    init:null,
-    initgame:null,
-    i:0,
-    xx:null,
-    yy:null,
+    datai:null,
+    dataj:null,
+    array: [['','',''],['','',''],['','','']],
+
     ctor:function () {
 
         this._super();
+
+
+        this.drawSegment(this);
+        this.setUpMouse(this);
+        this.setImg(this);
+
+
+
+
+        return true;
+    },
+    drawSegment(layer){
 
         //背景圖片
         this.itembg = new cc.Sprite(res.itembg_jpg);
@@ -34,15 +36,7 @@ var item1Layer = cc.Layer.extend({
         });
         this.addChild(this.itembg);
 
-        this.drawSegment(this);
-        this.setUpMouse(this);
-        this.setImg(this);
 
-        // this.setwinner(this);
-
-        return true;
-    },
-    drawSegment:function(layer){
         //使用DrawNode(繪製結點)來繪製圖形
         var stick1 = new cc.DrawNode();
         //drawSegment(繪製段)繪製線(從哪,到哪,半徑,顏色)
@@ -80,9 +74,10 @@ var item1Layer = cc.Layer.extend({
             cc.color(255,255,255)
         );
         this.addChild(stick4);
+
+
     },
     setImg:function(layer){
-
         for(let i=0;i<this.imgrect.length;i++) {
 
             this.px = (i % 3) + 1;
@@ -104,6 +99,7 @@ var item1Layer = cc.Layer.extend({
                 130,
             );
 
+
         }
     },
     setUpMouse:function(layer){
@@ -116,26 +112,17 @@ var item1Layer = cc.Layer.extend({
                 var x = event.getLocationX();
                 var y = event.getLocationY();
                 var point = new cc.Point(x, y);
-                for (layer.i=0; layer.i < layer.imgrect.length; layer.i++) {
 
-                    if (cc.rectContainsPoint(layer.imgrect[layer.i], point)){
+                    for (let i=0;i < layer.imgrect.length;i++) {
 
-                        if(layer.gameOver) {
-
-                            layer.getclick = layer.imgrect[layer.i];
+                    if (cc.rectContainsPoint(layer.imgrect[i], point)) {
 
 
-                                layer.currentState.unshift(layer.getclick);
-                            cc.log(layer.currentState[layer.i]);
-                            cc.log(layer.currentState[(layer.i+1)]);
-                            playRound(layer.imgrect[layer.i],layer);
+                        cc.log(giraff(layer.imgrect[i],layer))
 
-                        }
+                        //為什麼是undefined!!!!!!!
 
-
-
-                    }
-
+                            }
 
                 }
 
@@ -148,32 +135,22 @@ var item1Layer = cc.Layer.extend({
 
 
 
-
 });
 
-var item1Scene = cc.Scene.extend({
+var item2Scene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new item1Layer();
+        var layer = new item2Layer();
         this.addChild(layer);
     }
 });
 
-var turn = 0;
-function playRound(objDest,layer){
-if(turn==0){
-        layer.img1 = new cc.Sprite(res.giraffe_png);
-        layer.img1.x = objDest.x + objDest.width / 2;
-        layer.img1.y = objDest.y + objDest.height / 2;
-        layer.addChild(layer.img1);
-        turn=1;
+function giraff(objDest,layer){
+    layer.img1 = new cc.Sprite(res.giraffe_png);
+    layer.img1.x = objDest.x + objDest.width / 2;
+    layer.img1.y = objDest.y + objDest.height / 2;
+    layer.addChild(layer.img1);
 
 }
-else if(turn==1) {
-    layer.img2 = new cc.Sprite(res.panda_png);
-    layer.img2.x = objDest.x + objDest.width / 2;
-    layer.img2.y = objDest.y + objDest.height / 2;
-    layer.addChild(layer.img2);
-    turn = 0;
-}
-}
+
+
